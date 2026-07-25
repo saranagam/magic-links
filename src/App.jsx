@@ -560,13 +560,6 @@ export default function App() {
                 <h2 className="text-3xl font-bold text-gray-900">My Links</h2>
                 <p className="text-gray-500 mt-1 text-sm">View all your shortened links</p>
               </div>
-              <button
-                onClick={() => fetchMyLinks()}
-                className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-lg hover:bg-emerald-100 transition-colors font-medium text-sm border border-emerald-200"
-              >
-                <RefreshCw className="w-4 h-4" />
-                Refresh
-              </button>
             </div>
 
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
