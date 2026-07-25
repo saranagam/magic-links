@@ -31,6 +31,13 @@ const supabaseClient =
   supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 
+const getDaysLeft = (createdAt) => {
+  const created = new Date(createdAt);
+  const now = new Date();
+  const diffDays = Math.floor((now - created) / (1000 * 60 * 60 * 24));
+  return Math.max(0, 30 - diffDays);
+};
+
 // Generate a local session ID so users can see their own links
 const getSessionId = () => {
   let sessionId = localStorage.getItem("anon_session_id");
@@ -595,13 +602,23 @@ export default function App() {
                           <p className="text-gray-700 text-sm truncate" title={u.original_url}>
                             {u.original_url}
                           </p>
-                          <p className="text-xs text-gray-400 mt-0.5">
-                            Created {new Date(u.created_at).toLocaleDateString()}
+                          <p className="text-xs text-gray-400 mt-0.5 flex items-center gap-2">
+                            <span>Created {new Date(u.created_at).toLocaleDateString()}</span>
+                            <span>•</span>
+                            <span className={getDaysLeft(u.created_at) === 0 ? "text-red-500 font-medium" : getDaysLeft(u.created_at) <= 5 ? "text-amber-500 font-medium" : "text-emerald-500 font-medium"}>
+                              {getDaysLeft(u.created_at) === 0 ? "Expired" : `Expires in ${getDaysLeft(u.created_at)} days`}
+                            </span>
                           </p>
                         </div>
                         <div className="flex-1 sm:hidden min-w-0 px-2">
                           <p className="text-gray-700 text-xs truncate">{u.original_url}</p>
-                          <p className="text-xs text-gray-400">{new Date(u.created_at).toLocaleDateString()}</p>
+                          <div className="text-xs text-gray-400 flex items-center gap-1 mt-0.5">
+                            <span>{new Date(u.created_at).toLocaleDateString()}</span>
+                            <span>•</span>
+                            <span className={getDaysLeft(u.created_at) === 0 ? "text-red-500 font-medium" : getDaysLeft(u.created_at) <= 5 ? "text-amber-500 font-medium" : "text-emerald-500 font-medium"}>
+                              {getDaysLeft(u.created_at) === 0 ? "Expired" : `${getDaysLeft(u.created_at)}d left`}
+                            </span>
+                          </div>
                         </div>
                         <div className="flex-shrink-0 sm:col-span-2 flex justify-end gap-2">
                           <button
@@ -631,7 +648,17 @@ export default function App() {
 
       {/* Footer */}
       <footer className="text-center py-8 text-gray-400 text-sm border-t border-gray-200 mt-auto bg-white flex flex-col items-center justify-center gap-2">
-        <p>Thoughtfully crafted by Agam Saran ✨| Powered by React & Supabase</p>
+        <p>
+          Made with ❤️ by{" "}
+          <a
+            href="https://www.linkedin.com/in/agam-saran"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-emerald-500 transition-colors"
+          >
+            Agam Saran
+          </a>
+        </p>
       </footer>
     </div>
   );
