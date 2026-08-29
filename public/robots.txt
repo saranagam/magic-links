@@ -1,0 +1,7 @@
+# Allow all search engine crawlers
+User-agent: *
+Allow: /
+
+# Host & Sitemap location
+Host: https://magic-links.vercel.app
+Sitemap: https://magic-links.vercel.app/sitemap.xml
