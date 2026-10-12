@@ -19,7 +19,7 @@ const navBtnCommented = `            {/* <button
 
 content = content.replace(navBtn, navBtnCommented);
 
-// 2. Comment out the Dashboard tab ---
+// 2. Comment out the Dashboard tab ---ch
 const startStr = '{/* TAB: ANALYTICS DASHBOARD */}';
 const endStr = '{/* TAB: UNSHORTEN */}';
 
